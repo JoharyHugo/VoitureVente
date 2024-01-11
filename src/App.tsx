@@ -23,6 +23,8 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import Login from './Login';
+import Inscription from './Inscription';
+import Annonce from './Annonce';
 
 setupIonicReact();
 
@@ -40,6 +42,8 @@ const App: React.FC = () => {
               <Page />
             </Route>
             <Route path="/login" component={Login} exact={true} />
+            <Route path="/inscription" component={Inscription} exact={true} />
+            <Route path="/annonce" component={Annonce} exact={true} />
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>
