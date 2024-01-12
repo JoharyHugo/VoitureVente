@@ -53,7 +53,7 @@ const Annonce: React.FC = () => {
                   className="form-control"
                   value={prixVente}
                   onIonChange={(e) => setPrixVente(e.detail.value!)}
-                  style={{ width: '323px' }}
+                  style={{ width: '323px',border: '1px solid black' }}
                 />
               </div>
 
@@ -64,7 +64,7 @@ const Annonce: React.FC = () => {
                     className="form-control"
                     id="inputGroupFile02"
                     onChange={(e) => setPhoto(e.target.value)}
-                    style={{ width: '323px' }}
+                    style={{ width: '323px' ,border: '1px solid black' }}
                 />
               </div>
 
@@ -72,7 +72,7 @@ const Annonce: React.FC = () => {
               <div className="mb-3">
                 <IonLabel style={{ color: 'black', fontWeight: 'bold' }}>Description</IonLabel>
                 <IonTextarea
-                    style={{ width: '325px' }}
+                    style={{ width: '325px' ,border: '1px solid black' }}
                     value={description}
                     onIonChange={(e) => setDescription(e.detail.value!)}
                     className='form-control'
