@@ -1,0 +1,19 @@
+/* src/pages/annonces/Annonces.css */
+
+ion-thumbnail img {
+    max-width: 100%;
+    height: auto;
+  }
+/* src/css/annonce.css */
+
+.annonce-content {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .annonce-details {
+    flex: 1;
+    padding-left: 10px; /* Ajoutez un espace entre la photo et les détails */
+    margin-left: 220px;
+  }
+    
