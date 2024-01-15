@@ -18,14 +18,14 @@ const Login: React.FC = () => {
   return (
     <IonPage>
       <IonContent className="ion-padding">
-        <IonRow className="justify-content-center align-items-center" style={{ background: `#adb5bd`, height: '825px' }}>
+        <IonRow className="justify-content-center align-items-center" style={{ background: `rgb(189 215 243)`, height: '825px' }}>
           <IonCol md="6">
-            <form onSubmit={handleSubmit} style={{ marginTop: '-200px'}} className="d-flex flex-column align-items-center">
+            <form onSubmit={handleSubmit} style={{ marginTop: '-81px'}} className="d-flex flex-column align-items-center">
               {/* Ajoutez le IonIcon en haut du formulaire */}
-              <IonIcon icon={person} style={{ fontSize: '3em', color: 'black' }} className="mx-auto mb-3" />
+              <IonIcon icon={person} style={{ fontSize: '3em', color: 'black' ,marginTop: '-3px'}} className="mx-auto mb-3" />
 
               <div className="mb-3">
-                <IonLabel style={{color:'white',fontWeight: 'bold'}}>Email address</IonLabel>
+                <IonLabel style={{color:'rgb(43 43 43)',fontWeight: 'bold'}}>Email address</IonLabel>
                 <IonInput
                   type="email"
                   className="form-control champ"
@@ -35,7 +35,7 @@ const Login: React.FC = () => {
                 />
               </div>
               <div className="mb-3">
-                <IonLabel style={{color:'white',fontWeight: 'bold'}}>Password</IonLabel>
+                <IonLabel style={{color:'rgb(43 43 43)',fontWeight: 'bold'}}>Password</IonLabel>
                 <IonInput
                   type="password"
                   className="form-control champ"

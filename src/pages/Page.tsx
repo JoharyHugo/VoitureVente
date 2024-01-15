@@ -8,7 +8,7 @@ const Page: React.FC = () => {
   const { name } = useParams<{ name: string; }>();
 
   return (
-    <IonPage>
+    <IonPage className="pagecustom">
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">

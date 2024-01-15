@@ -16,7 +16,7 @@ import {
 import './css/annonce.css';
 
 const Annonces: React.FC = () => (
-  <IonPage>
+  <IonPage className="custom-page-background">
     <IonHeader>
       <IonToolbar>
         <IonTitle>Annonces</IonTitle>
@@ -56,6 +56,7 @@ const annonces = [
     statut: 'Terminée',
     photoUrl: 'https://picsum.photos/seed/picsum/200/300',
   }
+  
   // Ajoutez d'autres annonces ici
 ];
 

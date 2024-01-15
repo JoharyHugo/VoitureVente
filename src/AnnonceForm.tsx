@@ -103,7 +103,7 @@ const AnnonceForm: React.FC = () => {
               <div className="mb-3">
                 <IonLabel style={{ color: 'black', fontWeight: 'bold' }}>Description</IonLabel>
                 <IonTextarea
-                  style={{ width: '325px', border: '1px solid black', '--ion-background-color': 'white' }}
+                  style={{ width: '325px', border: '1px solid black', background: `white` }}
                   value={description}
                   onIonChange={(e) => setDescription(e.detail.value!)}
                   placeholder="Leave a comment here" 

@@ -22,3 +22,11 @@
 #container a {
   text-decoration: none;
 }
+#container h1{
+  font-size: 45px;
+}
+#container h2{
+  margin-top: 32px;
+  font-style: italic;
+  font-size: 29px;
+}

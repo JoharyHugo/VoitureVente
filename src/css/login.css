@@ -46,10 +46,10 @@
 
   .champ{
     border: none;
-    border-bottom: 1px solid #495057;
+   /* border-bottom: 1px solid #495057;
     outline: none;
     background: transparent;
-    --highlight-color-focused: #212529;
+    --highlight-color-focused: #212529;*/
   }
   h1{
 
