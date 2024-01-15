@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
-import { IonContent, IonPage, IonInput, IonButton, IonRow, IonCol, IonLabel, IonCheckbox } from '@ionic/react';
+import { IonContent, IonPage, IonInput, IonButton, IonRow, IonCol, IonLabel, IonCheckbox ,IonHeader,IonToolbar,IonTitle,IonBackButton,IonButtons} from '@ionic/react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { IonIcon } from '@ionic/react';
-import { person } from 'ionicons/icons';
+import { person ,arrowBack} from 'ionicons/icons';
+import { useHistory } from 'react-router-dom';
 import './css/login.css';
+
 const Login: React.FC = () => {
+  const history = useHistory();
+
+  const handleGoBack = () => {
+    history.goBack(); // Utilisez cette fonction pour revenir à la page précédente
+  };
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,6 +25,14 @@ const Login: React.FC = () => {
 
   return (
     <IonPage>
+      <IonHeader>
+      <IonToolbar>
+      <IonButtons slot="start">
+            <IonBackButton defaultHref="/" />
+          </IonButtons>
+        <IonTitle>Login</IonTitle>
+      </IonToolbar>
+    </IonHeader>
       <IonContent className="ion-padding">
         <IonRow className="justify-content-center align-items-center" style={{ background: `rgb(189 215 243)`, height: '825px' }}>
           <IonCol md="6">

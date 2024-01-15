@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { IonContent, IonPage, IonInput, IonButton, IonRow, IonCol, IonLabel, IonSelect, IonSelectOption, IonTextarea } from '@ionic/react';
+import { IonContent, IonPage, IonInput, IonButton, IonRow, IonCol, IonLabel, IonSelect, IonSelectOption, IonTextarea ,IonHeader,IonToolbar,IonTitle,IonBackButton,IonButtons} from '@ionic/react';
 import './css/login.css';
 import fondImage from './image/annoce.jpg'
-
+import { useHistory } from 'react-router-dom';
 const AnnonceForm: React.FC = () => {
+
+  const history = useHistory();
+
+  const handleGoBack = () => {
+    history.goBack(); // Utilisez cette fonction pour revenir à la page précédente
+  };
   const [marque, setMarque] = useState('');
   const [model, setModel] = useState('');
   const [prixVente, setPrixVente] = useState('');
@@ -55,6 +61,14 @@ const AnnonceForm: React.FC = () => {
 
   return (
     <IonPage>
+      <IonHeader>
+      <IonToolbar>
+      <IonButtons slot="start">
+            <IonBackButton defaultHref="/" />
+          </IonButtons>
+        <IonTitle>Annonce form</IonTitle>
+      </IonToolbar>
+    </IonHeader>
       <IonContent className="ion-padding">
         <IonRow className="justify-content-center align-items-center" style={{ backgroundImage: `url(${fondImage})`, height: '825px' }}>
           <h1>AnnonceForm</h1>
