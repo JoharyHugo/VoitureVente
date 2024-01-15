@@ -44,7 +44,7 @@ const App: React.FC = () => {
             </Route>
             <Route path="/login" component={Login} exact={true} />
             <Route path="/inscription" component={Inscription} exact={true} />
-            <Route path="/annonceForm " component={AnnonceForm } exact={true} />
+            <Route path="/annonceForm" component={AnnonceForm } exact={true} />
             <Route path="/annonce" component={Annonces} exact={true} />
           </IonRouterOutlet>
         </IonSplitPane>
