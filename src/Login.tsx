@@ -16,11 +16,37 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Ajoutez votre logique de soumission ici
-    console.log('Email:', email);
-    console.log('Password:', password);
+
+    // Construire l'objet à envoyer dans la requête
+    const requestBody = {
+      email,
+      mdp: password,
+    };
+
+    try {
+      // Effectuer la requête POST
+      const response = await fetch('http://localhost:80/api/user/verif', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      // Vérifier si la requête a réussi (code de statut 200)
+      if (response.ok) {
+        console.log('Authentification réussie');
+        // Ajoutez ici la logique de redirection ou d'autres actions après l'authentification réussie
+      } else {
+        console.error('Échec de l\'authentification');
+        // Ajoutez ici la logique pour traiter l'échec de l'authentification
+      }
+    } catch (error) {
+      console.error('Erreur lors de la requête:', error);
+      // Ajoutez ici la logique pour traiter les erreurs de requête
+    }
   };
 
   return (
