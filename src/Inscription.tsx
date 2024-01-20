@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonContent, IonPage, IonInput, IonButton, IonRow, IonCol, IonLabel, IonCheckbox } from '@ionic/react';
+import { IonContent, IonPage, IonInput, IonButton, IonRow, IonCol, IonLabel, IonCheckbox,IonHeader,IonToolbar,IonTitle,IonBackButton,IonButtons } from '@ionic/react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { IonIcon } from '@ionic/react';
 import { person } from 'ionicons/icons';
@@ -17,6 +17,14 @@ const Inscription: React.FC = () => {
 
   return (
     <IonPage className="reset-styles">
+       <IonHeader>
+      <IonToolbar>
+      <IonButtons slot="start">
+            <IonBackButton defaultHref="/" />
+          </IonButtons>
+        <IonTitle>Inscription</IonTitle>
+      </IonToolbar>
+    </IonHeader>
       <IonContent className="ion-padding">
         <IonRow className="justify-content-center align-items-center" style={{ background: `#e2f0ff`, height: '825px' }}><h1>Inscription</h1>
           <IonCol md="6">
