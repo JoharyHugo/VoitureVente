@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IonContent, IonPage, IonInput, IonButton, IonRow, IonCol, IonLabel, IonCheckbox ,IonHeader,IonToolbar,IonTitle,IonBackButton,IonButtons} from '@ionic/react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { IonIcon } from '@ionic/react';
@@ -14,40 +14,66 @@ const Login: React.FC = () => {
   };
 
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [mdp, setPassword] = useState('');
+
+  let requestBody = {
+    email,
+    mdp,
+   };
+   
+   // Update requestBody whenever email or password changes
+   useEffect(() => {
+    requestBody = {
+       email,
+       mdp,
+    };
+   }, [email, mdp]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Construire l'objet à envoyer dans la requête
-    const requestBody = {
-      email,
-      mdp: password,
-    };
-
+   
+   
     try {
-      // Effectuer la requête POST
-      const response = await fetch('http://localhost:80/api/user/verif', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      // Vérifier si la requête a réussi (code de statut 200)
-      if (response.ok) {
-        console.log('Authentification réussie');
-        // Ajoutez ici la logique de redirection ou d'autres actions après l'authentification réussie
-      } else {
-        console.error('Échec de l\'authentification');
-        // Ajoutez ici la logique pour traiter l'échec de l'authentification
-      }
+       // Effectuez la requête POST
+       const response = await fetch('http://localhost:80/api/user/verif', {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify(requestBody),
+       });
+   
+       // Vérifiez si la requête a réussi (code de statut 200)
+       if (response.ok) {
+         const token = await response.text();
+         console.log(token);
+          
+         // Stockez le token dans LocalStorage
+         localStorage.setItem('token', token);
+          
+         // Configurez un délai pour retirer le token après 2 minutes
+         setTimeout(() => {
+           localStorage.removeItem('token');
+           console.log("Le token a été retiré de LocalStorage après 2 minutes.");
+         }, 2 * 60 * 1000); // 2 minutes en millisecondes
+          
+         //console.log("Le token a été stocké dans LocalStorage.");
+       } else {
+         console.error('Échec de l\'authentification');
+   
+         // Gérez le cas où la réponse n'est pas en JSON
+         const nonJsonResponse = await response.text();
+         console.log('Réponse non JSON (texte brut) :', nonJsonResponse);
+   
+         // Ajoutez ici la logique pour gérer l'échec de l'authentification
+       }
     } catch (error) {
-      console.error('Erreur lors de la requête:', error);
-      // Ajoutez ici la logique pour traiter les erreurs de requête
+       console.error('Erreur lors de la requête :', error);
+       // Ajoutez ici la logique pour gérer les erreurs de requête
     }
-  };
+   };
+   
+  
 
   return (
     <IonPage>
@@ -81,7 +107,7 @@ const Login: React.FC = () => {
                 <IonInput
                   type="password"
                   className="form-control champ"
-                  value={password}
+                  value={mdp}
                   onIonChange={(e) => setPassword(e.detail.value!)}
                   style={{ width: '323px' }}
                 />
