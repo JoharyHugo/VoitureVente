@@ -11,9 +11,11 @@ const AnnonceForm: React.FC = () => {
   const handleGoBack = () => {
     history.goBack(); // Utilisez cette fonction pour revenir à la page précédente
   };
-  const [marque, setMarque] = useState('');
+  
   const [model, setModel] = useState('');
+  const [daty, setDaty] = useState('');
   const [prixVente, setPrixVente] = useState('');
+  const [lieux, setLieux] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
   const [description, setDescription] = useState('');
 
@@ -75,21 +77,23 @@ const AnnonceForm: React.FC = () => {
           <IonCol md="6">
             <form onSubmit={handleSubmit} style={{ marginTop: '-168px'}} className="d-flex flex-column align-items-center">
               <div className="mb-3">
-                <IonLabel style={{ color: 'black', fontWeight: 'bold' }}>Marque</IonLabel>
-                <IonSelect value={marque} placeholder="Sélectionnez la marque" onIonChange={(e) => setMarque(e.detail.value)} className='form-select selecton' >
-                  <IonSelectOption value="marque1">Marque 1</IonSelectOption>
-                  <IonSelectOption value="marque2">Marque 2</IonSelectOption>
-                  {/* Ajoutez d'autres options au besoin */}
-                </IonSelect>
-              </div>
-
-              <div className="mb-3">
                 <IonLabel style={{ color: 'black', fontWeight: 'bold' }}>Modèle</IonLabel>
                 <IonSelect value={model} placeholder="Sélectionnez le modèle" onIonChange={(e) => setModel(e.detail.value)} className='form-select selecton'>
                   <IonSelectOption value="modele1">Modèle 1</IonSelectOption>
                   <IonSelectOption value="modele2">Modèle 2</IonSelectOption>
                   {/* Ajoutez d'autres options au besoin */}
                 </IonSelect>
+              </div>
+
+              <div className="mb-3">
+                <IonLabel style={{ color: 'black', fontWeight: 'bold' }}>Daty</IonLabel>
+                <IonInput
+                  type="date"
+                  className="form-control"
+                  value={daty}
+                  onIonChange={(e) => setPrixVente(e.detail.value!)}
+                  style={{ width: '323px',border: '1px solid black' }}
+                />
               </div>
 
               <div className="mb-3">
@@ -102,6 +106,18 @@ const AnnonceForm: React.FC = () => {
                   style={{ width: '323px',border: '1px solid black' }}
                 />
               </div>
+
+              <div className="mb-3">
+                <IonLabel style={{ color: 'black', fontWeight: 'bold' }}>Lieux</IonLabel>
+                <IonInput
+                  type="text"
+                  className="form-control"
+                  value={lieux}
+                  onIonChange={(e) => setPrixVente(e.detail.value!)}
+                  style={{ width: '323px',border: '1px solid black' }}
+                />
+              </div>
+
 
               <div className="mb-3">
                 <IonLabel style={{ color: 'black', fontWeight: 'bold' }}>Photo</IonLabel>
