@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {  useRef  } from 'react';
 import { IonContent, IonPage, IonInput, IonButton, IonRow, IonCol, IonLabel, IonIcon, IonHeader, IonToolbar, IonTitle, IonBackButton, IonButtons } from '@ionic/react';
 import { person } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
@@ -8,38 +8,28 @@ const Login: React.FC = () => {
   const history = useHistory();
 
   const handleGoBack = () => {
-    history.goBack();
+     history.goBack();
   };
-
-  const [email, setEmail] = useState('');
-  const [mdp, setPassword] = useState('');
-
-  // Mettez à jour requestBody chaque fois que l'email ou le mot de passe change
-  useEffect(() => {
-    const requestBody = {
-      email,
-      mdp,
-    };
-    setRequestBody(requestBody);
-  }, [email, mdp]);
-
-  const [requestBody, setRequestBody] = useState({
-    email: '',
-    mdp: '',
-  });
-
+ 
+  // Create refs for the email and password fields
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const handleSubmit = async (e: React.FormEvent) => {
+    
     e.preventDefault();
 
     try {
-      //console.log(requestBody);
+      const email = emailRef.current?.value || '';
+      const mdp = passwordRef.current?.value || '';
+
+      console.log({ email, mdp });
       // Effectuez la requête POST en utilisant le dernier requestBody
       const response = await fetch('http://localhost:80/api/user/verif', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify({ email, mdp }),
       });
 
       // Gérez la réponse...
@@ -58,6 +48,7 @@ const Login: React.FC = () => {
         history.push("/");
       } else {
         console.error("Échec de l'authentification");
+        alert("Échec de l'authentification");
 
         // Gérez le cas où la réponse n'est pas en JSON
         const nonJsonResponse = await response.text();
@@ -90,21 +81,19 @@ const Login: React.FC = () => {
               <div className="mb-3">
                 <IonLabel style={{ color: 'rgb(43 43 43)', fontWeight: 'bold' }}>Adresse e-mail</IonLabel>
                 <IonInput
-                  type="email"
-                  className="form-control champ"
-                  value={email}
-                  onIonChange={(e) => setEmail(e.detail.value!)}
-                  style={{ width: '323px' }}
+                 type="email"
+                 className="form-control champ"
+                 ref={emailRef}
+                 style={{ width: '323px' }}
                 />
               </div>
               <div className="mb-3">
                 <IonLabel style={{ color: 'rgb(43 43 43)', fontWeight: 'bold' }}>Mot de passe</IonLabel>
                 <IonInput
-                  type="password"
-                  className="form-control champ"
-                  value={mdp}
-                  onIonChange={(e) => setPassword(e.detail.value!)}
-                  style={{ width: '323px' }}
+                 type="password"
+                 className="form-control champ"
+                 ref={passwordRef}
+                 style={{ width: '323px' }}
                 />
               </div>
               <button type='submit' className="button-29 " style={{ marginTop: '25px' }}>Connexion</button>
@@ -113,7 +102,8 @@ const Login: React.FC = () => {
         </IonRow>
       </IonContent>
     </IonPage>
-  );
+ );
 };
+
 
 export default Login;
