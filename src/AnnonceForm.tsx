@@ -41,8 +41,20 @@ const AnnonceForm: React.FC = () => {
      descriptionRef.current = description;
   }, [description]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit =(e: React.FormEvent)=>{
     e.preventDefault();
+    test()
+    .then(result => {
+      if(result?.success) {
+        console.log("DONE");
+      } else {
+        console.log("ERROR");
+      }
+    })
+    .catch(error => console.log(error));
+  }
+
+  const test = async () => {
     let descriptionValue = description;
     // 1. Vérifiez si une photo a été sélectionnée
     if (!photo) {
@@ -73,15 +85,18 @@ const AnnonceForm: React.FC = () => {
       const photoUrl = response.data.data.url;
 
       // 6. Affichez les valeurs du formulaire dans la console
-      console.log('Marque:', model);
-      console.log('Daty:', daty);
-      console.log('Lieu:',lieux)
-      console.log('Prix Vente:', prixVente);
-      console.log('Photo:', photoUrl); // Utilisez le lien ImgBB ici
-      console.log('Description:', descriptionRef.current);
+      console.log("Model"+model );
+      console.log("Photo "+photoUrl );
+      console.log("Lieux"+lieux);
+      console.log("Daty"+daty);
+      console.log("Desc"+descriptionRef.current);
+      console.log("Prix"+prixVente);
+
       
+      return {success: true}
     } catch (error) {
       console.error('Erreur lors du téléchargement de la photo sur ImgBB:', error);
+      return {success: false}
     }
   };
 
