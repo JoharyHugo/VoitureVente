@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useRef } from 'react';
 import axios from 'axios';
 import { IonContent, IonPage, IonInput, IonButton, IonRow, IonCol, IonLabel, IonSelect, IonSelectOption, IonTextarea ,IonHeader,IonToolbar,IonTitle,IonBackButton,IonButtons} from '@ionic/react';
 import './css/login.css';
@@ -34,9 +34,16 @@ const AnnonceForm: React.FC = () => {
     fetchData();
   }, []);
 
+  const descriptionRef = useRef(description);
+
+  useEffect(() => {
+     // Update the ref value whenever the description state changes
+     descriptionRef.current = description;
+  }, [description]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    let descriptionValue = description;
     // 1. Vérifiez si une photo a été sélectionnée
     if (!photo) {
       alert('Veuillez sélectionner une photo.');
@@ -67,10 +74,12 @@ const AnnonceForm: React.FC = () => {
 
       // 6. Affichez les valeurs du formulaire dans la console
       console.log('Marque:', model);
-      console.log('Model:', model);
+      console.log('Daty:', daty);
+      console.log('Lieu:',lieux)
       console.log('Prix Vente:', prixVente);
       console.log('Photo:', photoUrl); // Utilisez le lien ImgBB ici
-      console.log('Description:', description);
+      console.log('Description:', descriptionRef.current);
+      
     } catch (error) {
       console.error('Erreur lors du téléchargement de la photo sur ImgBB:', error);
     }
@@ -92,10 +101,10 @@ const AnnonceForm: React.FC = () => {
           <IonCol md="6">
             <form onSubmit={handleSubmit} style={{ marginTop: '-168px'}} className="d-flex flex-column align-items-center">
               <div className="mb-3">
-                <IonLabel style={{ color: 'black', fontWeight: 'bold' }}>Modèle</IonLabel>
+                <IonLabel style={{ color: 'black', fontWeight: 'bold' }}>Matricule</IonLabel>
                 <IonSelect value={model} placeholder="Sélectionnez le modèle" onIonChange={(e) => setModel(e.detail.value)} className='selecton'>
                 {voitures.map((voiture) => (
-                  <IonSelectOption  value={voiture.idCar}>
+                  <IonSelectOption key={voiture.idCar}  value={voiture.idCar}>
                     {voiture.matricule}
                   </IonSelectOption>
                 ))}
@@ -108,7 +117,7 @@ const AnnonceForm: React.FC = () => {
                   type="date"
                   className="form-control"
                   value={daty}
-                  onIonChange={(e) => setPrixVente(e.detail.value!)}
+                  onIonChange={(e) => setDaty(e.detail.value!)}
                   style={{ width: '323px',border: '1px solid black' }}
                 />
               </div>
@@ -130,7 +139,7 @@ const AnnonceForm: React.FC = () => {
                   type="text"
                   className="form-control"
                   value={lieux}
-                  onIonChange={(e) => setPrixVente(e.detail.value!)}
+                  onIonChange={(e) => setLieux(e.detail.value!)}
                   style={{ width: '323px',border: '1px solid black' }}
                 />
               </div>
