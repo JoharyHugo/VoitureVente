@@ -7,13 +7,58 @@ import './css/login.css';
 const Inscription: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [nom,setNom]=useState('');
+  const [prenom,setPrenom]=useState('');
+  const [contact,setContact]=useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Ajoutez votre logique de soumission ici
-    console.log('Email:', email);
-    console.log('Password:', password);
+  
+    fetch('http://localhost:80/api/user/create_user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, nom, prenom, "mdp": password, contact }),
+    })
+      .then(response => {
+        if (response.status==500) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        // If the status is CREATED (201), return the token
+        if (response.status === 201) {
+          return response.text();
+        }
+  
+        // If the status is not CREATED, return null
+        return null;
+      })
+      .then(token => {
+        // Check if the token is defined before using it
+        if (token !== null) {
+          localStorage.setItem('token', token);
+          setTimeout(() => {
+            localStorage.removeItem('token');
+            console.log("Le token a été retiré de LocalStorage après 2 minutes.");
+          }, 2 * 60 * 1000); // 2 minutes in milliseconds
+        }
+        
+        // Other operations here
+        console.log('Email:', email);
+        console.log('Password:', password);
+        console.log("Nom:",nom);
+        console.log("Prenom:",prenom);
+        console.log("Contact:",contact);
+      })
+      .catch(error => {
+        // Handle errors here
+        console.error('Error:', error);
+      });
   };
+  
+  
+  
 
   return (
     <IonPage className="reset-styles">
@@ -48,18 +93,18 @@ const Inscription: React.FC = () => {
                 <IonInput
                   type="text"
                   className="form-control champ"
-                  value={email}
-                  onIonChange={(e) => setEmail(e.detail.value!)}
+                  value={nom}
+                  onIonChange={(e) => setNom(e.detail.value!)}
                   style={{ width: '323px' }}
                 />
               </div>
               <div className="mb-3">
                 <IonLabel style={{color:'black',fontWeight: 'bold'}}>Prenom</IonLabel>
                 <IonInput
-                  type="email"
+                  type="text"
                   className="form-control champ"
-                  value={email}
-                  onIonChange={(e) => setEmail(e.detail.value!)}
+                  value={prenom}
+                  onIonChange={(e) => setPrenom(e.detail.value!)}
                   style={{ width: '323px' }}
                 />
               </div>
@@ -78,8 +123,8 @@ const Inscription: React.FC = () => {
                 <IonInput
                   type="number"
                   className="form-control champ"
-                  value={email}
-                  onIonChange={(e) => setEmail(e.detail.value!)}
+                  value={contact}
+                  onIonChange={(e) => setContact(e.detail.value!)}
                   style={{ width: '323px' }}
                 />
               </div>
