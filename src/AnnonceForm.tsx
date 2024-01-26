@@ -78,7 +78,7 @@ const AnnonceForm: React.FC = () => {
             <form onSubmit={handleSubmit} style={{ marginTop: '-168px'}} className="d-flex flex-column align-items-center">
               <div className="mb-3">
                 <IonLabel style={{ color: 'black', fontWeight: 'bold' }}>Modèle</IonLabel>
-                <IonSelect value={model} placeholder="Sélectionnez le modèle" onIonChange={(e) => setModel(e.detail.value)} className='form-select selecton'>
+                <IonSelect value={model} placeholder="Sélectionnez le modèle" onIonChange={(e) => setModel(e.detail.value)} className='selecton'>
                   <IonSelectOption value="modele1">Modèle 1</IonSelectOption>
                   <IonSelectOption value="modele2">Modèle 2</IonSelectOption>
                   {/* Ajoutez d'autres options au besoin */}
