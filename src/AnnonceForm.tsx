@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import { IonContent, IonPage, IonInput, IonButton, IonRow, IonCol, IonLabel, IonSelect, IonSelectOption, IonTextarea ,IonHeader,IonToolbar,IonTitle,IonBackButton,IonButtons} from '@ionic/react';
 import './css/login.css';
@@ -12,12 +12,27 @@ const AnnonceForm: React.FC = () => {
     history.goBack(); // Utilisez cette fonction pour revenir à la page précédente
   };
   
+  const [voitures, setVoitures] = useState([]);
   const [model, setModel] = useState('');
   const [daty, setDaty] = useState('');
   const [prixVente, setPrixVente] = useState('');
   const [lieux, setLieux] = useState('');
   const [photo, setPhoto] = useState<File | null>(null);
   const [description, setDescription] = useState('');
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:80/api/voiture/all');
+        setVoitures(response.data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,7 +66,7 @@ const AnnonceForm: React.FC = () => {
       const photoUrl = response.data.data.url;
 
       // 6. Affichez les valeurs du formulaire dans la console
-      console.log('Marque:', marque);
+      console.log('Marque:', model);
       console.log('Model:', model);
       console.log('Prix Vente:', prixVente);
       console.log('Photo:', photoUrl); // Utilisez le lien ImgBB ici
@@ -79,9 +94,11 @@ const AnnonceForm: React.FC = () => {
               <div className="mb-3">
                 <IonLabel style={{ color: 'black', fontWeight: 'bold' }}>Modèle</IonLabel>
                 <IonSelect value={model} placeholder="Sélectionnez le modèle" onIonChange={(e) => setModel(e.detail.value)} className='selecton'>
-                  <IonSelectOption value="modele1">Modèle 1</IonSelectOption>
-                  <IonSelectOption value="modele2">Modèle 2</IonSelectOption>
-                  {/* Ajoutez d'autres options au besoin */}
+                {voitures.map((voiture) => (
+                  <IonSelectOption  value={voiture.idCar}>
+                    {voiture.matricule}
+                  </IonSelectOption>
+                ))}
                 </IonSelect>
               </div>
 
