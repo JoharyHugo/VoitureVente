@@ -130,6 +130,7 @@ const Inscription: React.FC = () => {
               </div>
               <button type='submit' className="button-29 " style={{ marginTop: '25px'}}>Connexion</button>
             </form>
+            <a href='/login' style={{marginLeft:'179px'}}>login</a>
           </IonCol>
         </IonRow>
       </IonContent>

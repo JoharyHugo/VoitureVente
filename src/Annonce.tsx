@@ -1,6 +1,5 @@
-// src/pages/Annonces.tsx
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   IonContent,
   IonHeader,
@@ -19,35 +18,61 @@ import './css/annonce.css';
 import { useHistory } from 'react-router-dom';
 
 const Annonces: React.FC = () => {
-
   const history = useHistory();
 
   const handleGoBack = () => {
-    history.goBack(); // Utilisez cette fonction pour revenir à la page précédente
+    history.goBack();
   };
 
-  const annonces = [
-    {
-      nom: 'Annonce 1',
-      prix: '$100',
-      statut: 'En cours',
-      photoUrl: 'https://picsum.photos/id/237/200/300',
-    },
-    {
-      nom: 'Annonce 2',
-      prix: '$150',
-      statut: 'Terminée',
-      photoUrl: 'https://picsum.photos/seed/picsum/200/300',
+  const fetchStatutData = async (id: number) => {
+    try {
+      const response = await axios.get(`http://localhost:80/api/statut/findOne/${id}`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Erreur lors de la récupération des données du statut:', error);
+      return null;
     }
-    // Ajoutez d'autres annonces ici
-  ];
+  };
+
+  const [annonce, setAnnonce] = useState([]);
+  const [statutData, setStatutData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+  
+        const response = await axios.get('http://localhost:80/api/annonce/annonces_of_user', {
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+        });
+  
+        setAnnonce(response.data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchStatutDataForAnnonces = async () => {
+      const statutPromises = annonce.map(annonces => fetchStatutData(annonces.statut));
+      const statutDataArray = await Promise.all(statutPromises);
+      setStatutData(statutDataArray);
+    };
+
+    fetchStatutDataForAnnonces();
+  }, [annonce]);
 
   return (
     <IonPage className="custom-page-background">
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            {/* Corrected usage of IonBackButton */}
             <IonBackButton defaultHref="/" />
           </IonButtons>
           <IonTitle>Annonces Liste</IonTitle>
@@ -55,16 +80,16 @@ const Annonces: React.FC = () => {
       </IonHeader>
       <IonContent>
         <IonList>
-          {annonces.map((annonce, index) => (
+          {annonce.map((annonces, index) => (
             <IonCard key={index}>
               <IonCardContent className="annonce-content">
                 <IonThumbnail slot="start">
-                  <img src={annonce.photoUrl} alt={annonce.nom} />
+                  <img src={annonces.image_car} alt="xxxx" />
                 </IonThumbnail>
                 <IonLabel className="annonce-details">
-                  <h2>{annonce.nom}</h2>
-                  <p>Prix: {annonce.prix}</p>
-                  <p>Statut: {annonce.statut}</p>
+                  <h2>{annonces.idUser}</h2>
+                  <p>Prix: {annonces.prix}</p>
+                  <p>Statut: {statutData[index]?.statut || 'Statut non disponible'}</p>
                 </IonLabel>
               </IonCardContent>
             </IonCard>

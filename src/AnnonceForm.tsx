@@ -20,7 +20,6 @@ const AnnonceForm: React.FC = () => {
   const [photo, setPhoto] = useState<File | null>(null);
   const [description, setDescription] = useState('');
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,12 +40,48 @@ const AnnonceForm: React.FC = () => {
      descriptionRef.current = description;
   }, [description]);
 
+  const create=(data: any)=>{
+    const token = localStorage.getItem('token');
+    fetch('http://localhost:80/api/annonce/create_annonce', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => {
+        if (response.status==500) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        // If the status is CREATED (201), return the token
+        if (response.status === 201) {
+          return response.text();
+        }
+  
+        // If the status is not CREATED, return null
+        return null;
+      })
+      .catch(error => {
+        // Handle errors here
+        console.error('Error:', error);
+      });
+  };
+
   const handleSubmit =(e: React.FormEvent)=>{
     e.preventDefault();
+    const token = localStorage.getItem('token');
+    if (token===null) {
+      alert('Session expiere veuillez vous reconnectez');
+      history.push("/login");
+      return;
+    }
     test()
     .then(result => {
       if(result?.success) {
         console.log("DONE");
+       // create();
       } else {
         console.log("ERROR");
       }
@@ -85,14 +120,23 @@ const AnnonceForm: React.FC = () => {
       const photoUrl = response.data.data.url;
 
       // 6. Affichez les valeurs du formulaire dans la console
-      console.log("Model"+model );
+      console.log("Model: "+model );
       console.log("Photo "+photoUrl );
-      console.log("Lieux"+lieux);
-      console.log("Daty"+daty);
-      console.log("Desc"+descriptionRef.current);
-      console.log("Prix"+prixVente);
-
+      console.log("Lieux: "+lieux);
+      console.log("Daty: "+daty);
+      console.log("Desc: "+descriptionRef.current);
+      console.log("Prix: "+prixVente);
       
+
+      setPhoto(photoUrl);
+      create({
+        idCar:model,
+        date_annonce: daty,
+        lieu: lieux,
+        description: descriptionRef.current,
+        prix: prixVente,
+        image_car: photoUrl,
+      });
       return {success: true}
     } catch (error) {
       console.error('Erreur lors du téléchargement de la photo sur ImgBB:', error);
@@ -120,7 +164,7 @@ const AnnonceForm: React.FC = () => {
                 <IonSelect value={model} placeholder="Sélectionnez le modèle" onIonChange={(e) => setModel(e.detail.value)} className='selecton'>
                 {voitures.map((voiture) => (
                   <IonSelectOption key={voiture.idCar}  value={voiture.idCar}>
-                    {voiture.matricule}
+                    {voiture.nom_voiture+" "+voiture.matricule} 
                   </IonSelectOption>
                 ))}
                 </IonSelect>

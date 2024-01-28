@@ -98,6 +98,7 @@ const Login: React.FC = () => {
               </div>
               <button type='submit' className="button-29 " style={{ marginTop: '25px' }}>Connexion</button>
             </form>
+            <a href='/inscription' style={{marginLeft:'170px'}}>Insciption</a>
           </IonCol>
         </IonRow>
       </IonContent>
