@@ -41,7 +41,7 @@ const Inscription: React.FC = () => {
           setTimeout(() => {
             localStorage.removeItem('token');
             console.log("Le token a été retiré de LocalStorage après 2 minutes.");
-          }, 2 * 60 * 1000); // 2 minutes in milliseconds
+          }, 15 * 60 * 1000); // 2 minutes in milliseconds
         }
         
         // Other operations here

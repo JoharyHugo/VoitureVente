@@ -27,6 +27,7 @@ import Inscription from './Inscription';
 import AnnonceForm from './AnnonceForm';
 import Annonces from './Annonce';
 import DetailAnnonce from './DetailAnnonce';
+import Deconnexion from './Deconnexion';
 
 setupIonicReact();
 
@@ -47,7 +48,8 @@ const App: React.FC = () => {
             <Route path="/inscription" component={Inscription} exact={true} />
             <Route path="/annonceForm" component={AnnonceForm } exact={true} />
             <Route path="/annonce" component={Annonces} exact={true} />
-            <Route path="/detail" component={DetailAnnonce}  exact={true}/>
+            <Route path="/deconnexion" component={Deconnexion} exact={true} />
+            <Route path="/detail/:idannonce" component={DetailAnnonce}  exact={true}/>
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>

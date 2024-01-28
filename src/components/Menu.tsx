@@ -11,7 +11,7 @@ import {
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
-import { archiveOutline, archiveSharp, bookmarkOutline, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp ,person} from 'ionicons/icons';
+import { archiveOutline, archiveSharp, bookmarkOutline, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp ,person, logOut, logOutOutline} from 'ionicons/icons';
 import './Menu.css';
 
 interface AppPage {
@@ -45,6 +45,12 @@ const appPages: AppPage[] = [
     url: '/inscription',
     iosIcon: archiveOutline,
     mdIcon: archiveSharp
+  },
+  {
+    title: 'Log out',
+    url: '/deconnexion',
+    iosIcon: logOutOutline,
+    mdIcon: logOutOutline
   }
 ];
 

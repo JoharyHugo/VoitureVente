@@ -74,13 +74,15 @@ const AnnonceForm: React.FC = () => {
     const token = localStorage.getItem('token');
     if (token===null) {
       alert('Session expiere veuillez vous reconnectez');
-      history.push("/login");
+      //history.push("/login");
       return;
     }
     test()
     .then(result => {
       if(result?.success) {
         console.log("DONE");
+        history.push('/');
+        return;
        // create();
       } else {
         console.log("ERROR");

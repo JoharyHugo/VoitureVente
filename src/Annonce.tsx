@@ -15,6 +15,7 @@ import {
   IonButtons
 } from '@ionic/react';
 import './css/annonce.css';
+import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
 const Annonces: React.FC = () => {
@@ -27,7 +28,7 @@ const Annonces: React.FC = () => {
   const fetchStatutData = async (id: number) => {
     try {
       const response = await axios.get(`http://localhost:80/api/statut/findOne/${id}`);
-      console.log(response.data);
+      //console.log(response.data);
       return response.data;
     } catch (error) {
       console.error('Erreur lors de la récupération des données du statut:', error);
@@ -55,7 +56,7 @@ const Annonces: React.FC = () => {
         const token = localStorage.getItem('token');
         if (token===null) {
           alert("Token Expire ou veuillez vous connecter");
-          history.push("/login");
+          //history.push("/login");
           return;
         }
         const response = await axios.get('http://localhost:80/api/annonce/annonces_of_user', {
@@ -116,7 +117,7 @@ const Annonces: React.FC = () => {
                 <h2>{voiture[index]?.nom_voiture || 'Nom non disponible'}</h2>
                   <p>Prix: {annonces.prix}</p>
                   <p>Statut: {statutData[index]?.statut || 'Statut non disponible'}</p>
-                  <a href='#'>Voir Detail</a>
+                  <Link to={`/detail/${annonces.idAnnonce}`}>Voir Détail</Link>
                 </IonLabel>
               </IonCardContent>
             </IonCard>

@@ -1,4 +1,4 @@
-import React, {  useRef  } from 'react';
+import React, {  useRef,useEffect  } from 'react';
 import { IonContent, IonPage, IonInput, IonButton, IonRow, IonCol, IonLabel, IonIcon, IonHeader, IonToolbar, IonTitle, IonBackButton, IonButtons } from '@ionic/react';
 import { person } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
@@ -14,6 +14,13 @@ const Login: React.FC = () => {
   // Create refs for the email and password fields
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    // Mettez à jour les valeurs par défaut des champs lors du rendu initial
+    if (emailRef.current && passwordRef.current) {
+      emailRef.current.value = 'user1@example.com';
+      passwordRef.current.value = 'password1';
+    }
+  }, []);
   const handleSubmit = async (e: React.FormEvent) => {
     
     e.preventDefault();
@@ -44,10 +51,10 @@ const Login: React.FC = () => {
         setTimeout(() => {
           localStorage.removeItem('token');
           console.log("Le token a été retiré de LocalStorage après 2 minutes.");
-        }, 2 * 60 * 1000); // 2 minutes en millisecondes
+        }, 15 * 60 * 1000); // 2 minutes in milliseconds
        
         history.push("/");
-        window.location.reload();
+        //window.location.reload();
       } else {
         console.error("Échec de l'authentification");
         alert("Échec de l'authentification");
