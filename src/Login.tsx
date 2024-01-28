@@ -45,7 +45,9 @@ const Login: React.FC = () => {
           localStorage.removeItem('token');
           console.log("Le token a été retiré de LocalStorage après 2 minutes.");
         }, 2 * 60 * 1000); // 2 minutes en millisecondes
+       
         history.push("/");
+        window.location.reload();
       } else {
         console.error("Échec de l'authentification");
         alert("Échec de l'authentification");

@@ -1,0 +1,33 @@
+/* src/css/DetailAnnonce.css */
+.annonce-page {
+    --ion-background-color: #f2f2f2; /* Couleur de fond grise */
+  }
+  
+  .annonce-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .horizontal-line {
+    border-top: 1px solid #ccc;
+    margin: 12px 0; /* Augmenté l'espace entre les lignes horizontales */
+  }
+  
+  .detail-item {
+    font-size: 18px;
+    margin-bottom: 32px; /* Augmenté l'espace entre les détails */
+  }
+  ion-select {
+    --border-radius: 8px;
+    --border: 2px solid #3498db; /* Couleur de la bordure */
+    --background: #ecf0f1; /* Couleur de fond */
+    margin-top: 15px;
+  }
+  
+  ion-select::part(icon) {
+    color: #3498db; /* Couleur de l'icône de la flèche déroulante */
+  }
+  
+  ion-select::part(icon) {
+    font-size: 1.2rem; /* Taille de la flèche déroulante */
+  }
