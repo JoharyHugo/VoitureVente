@@ -31,7 +31,7 @@ const Login: React.FC = () => {
 
       console.log({ email, mdp });
       // Effectuez la requête POST en utilisant le dernier requestBody
-      const response = await fetch('http://localhost:80/api/user/verif', {
+      const response = await fetch('https://autooccasion-production.up.railway.app/api/user/verif', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

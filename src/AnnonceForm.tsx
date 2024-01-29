@@ -166,7 +166,7 @@ const AnnonceForm: React.FC = () => {
                 <IonSelect value={model} placeholder="Sélectionnez le modèle" onIonChange={(e) => setModel(e.detail.value)} className='selecton'>
                 {voitures.map((voiture) => (
                   <IonSelectOption key={voiture.idCar}  value={voiture.idCar}>
-                    {voiture.nom_voiture+" "+voiture.matricule} 
+                    {voiture.nom_voiture} 
                   </IonSelectOption>
                 ))}
                 </IonSelect>
