@@ -9,7 +9,7 @@ const Deconnexion: React.FC = () => {
     localStorage.removeItem('token'); 
 
    
-    history.push('/'); 
+    window.location.href = '/'; 
   }, [history]);
 
   return (

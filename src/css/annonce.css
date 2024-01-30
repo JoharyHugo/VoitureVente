@@ -26,4 +26,11 @@
   .custom-page-background ion-content {
     --ion-background-color: #bcd9f5;
   }
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 100% of the viewport height */
+  }
+  
     

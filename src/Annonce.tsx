@@ -12,7 +12,8 @@ import {
   IonThumbnail,
   IonLabel,
   IonBackButton,
-  IonButtons
+  IonButtons,
+  IonSpinner,
 } from '@ionic/react';
 import './css/annonce.css';
 import { Link } from 'react-router-dom';
@@ -27,8 +28,7 @@ const Annonces: React.FC = () => {
 
   const fetchStatutData = async (id: number) => {
     try {
-      const response = await axios.get(`http://localhost:80/api/statut/findOne/${id}`);
-      //console.log(response.data);
+      const response = await axios.get(`https://autooccasion-production.up.railway.app/api/statut/findOne/${id}`);
       return response.data;
     } catch (error) {
       console.error('Erreur lors de la récupération des données du statut:', error);
@@ -38,45 +38,47 @@ const Annonces: React.FC = () => {
 
   const [annonce, setAnnonce] = useState([]);
   const [statutData, setStatutData] = useState([]);
-  const [voiture,setVoiture]=useState({});
+  const [voiture, setVoiture] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  const fetchVoiture=async(id:number)=>{
+  const fetchVoiture = async (id: number) => {
     try {
-      const response = await axios.get(`http://localhost:80/api/voiture/findOne/${id}`);
-      console.log(response.data);
+      const response = await axios.get(`https://autooccasion-production.up.railway.app/api/voiture/findOne/${id}`);
       return response.data;
     } catch (error) {
       console.error('Erreur lors de la récupération des données du statut:', error);
       return null;
     }
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        if (token===null) {
-          alert("Token Expire ou veuillez vous connecter");
-          //history.push("/login");
+        if (token === null) {
+          alert('Token Expire ou veuillez vous connecter');
           return;
         }
-        const response = await axios.get('http://localhost:80/api/annonce/annonces_of_user', {
+        const response = await axios.get('https://autooccasion-production.up.railway.app/api/annonce/annonces_of_user', {
           headers: {
-            'Authorization': 'Bearer ' + token
-          }
+            Authorization: 'Bearer ' + token,
+          },
         });
-  
+
         setAnnonce(response.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des données:', error);
+      } finally {
+        setLoading(false);
       }
     };
-  
+
     fetchData();
   }, []);
 
   useEffect(() => {
     const fetchStatutDataForAnnonces = async () => {
-      const statutPromises = annonce.map(annonces => fetchStatutData(annonces.statut));
+      const statutPromises = annonce.map((annonces) => fetchStatutData(annonces.statut));
       const statutDataArray = await Promise.all(statutPromises);
       setStatutData(statutDataArray);
     };
@@ -86,14 +88,13 @@ const Annonces: React.FC = () => {
 
   useEffect(() => {
     const fetchVoitureForAnnonces = async () => {
-      const voiturePromises = annonce.map(annonces => fetchVoiture(annonces.idCar));
+      const voiturePromises = annonce.map((annonces) => fetchVoiture(annonces.idCar));
       const voitureDataArray = await Promise.all(voiturePromises);
       setVoiture(voitureDataArray);
     };
 
     fetchVoitureForAnnonces();
   }, [annonce]);
-
 
   return (
     <IonPage className="custom-page-background">
@@ -106,23 +107,27 @@ const Annonces: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonList>
-          {annonce.map((annonces, index) => (
-            <IonCard key={index}>
-              <IonCardContent className="annonce-content">
-                <IonThumbnail slot="start">
-                  <img src={annonces.image_car} alt="xxxx" />
-                </IonThumbnail>
-                <IonLabel className="annonce-details">
-                <h2>{voiture[index]?.nom_voiture || 'Nom non disponible'}</h2>
-                  <p>Prix: {annonces.prix}</p>
-                  <p>Statut: {statutData[index]?.statut || 'Statut non disponible'}</p>
-                  <Link to={`/detail/${annonces.idAnnonce}`}>Voir Détail</Link>
-                </IonLabel>
-              </IonCardContent>
-            </IonCard>
-          ))}
-        </IonList>
+        {loading ? (
+          <IonSpinner style={{ width: '100px', height: '100px' }} />
+        ) : (
+          <IonList>
+            {annonce.map((annonces, index) => (
+              <IonCard key={index}>
+                <IonCardContent className="annonce-content">
+                  <IonThumbnail slot="start">
+                    <img src={annonces.image_car} alt="xxxx" />
+                  </IonThumbnail>
+                  <IonLabel className="annonce-details">
+                    <h2>{voiture[index]?.nom_voiture || 'Veuillez patientez les donnée charge'}</h2>
+                    <p>Prix: {annonces.prix}</p>
+                    <p>Statut: {statutData[index]?.statut || 'Veuillez patientez les donnée charge'}</p>
+                    <Link to={`/detail/${annonces.idAnnonce}`}>Voir Détail</Link>
+                  </IonLabel>
+                </IonCardContent>
+              </IonCard>
+            ))}
+          </IonList>
+        )}
       </IonContent>
     </IonPage>
   );
