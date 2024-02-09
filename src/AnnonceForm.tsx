@@ -35,7 +35,7 @@ const AnnonceForm: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://autooccasion-production.up.railway.app/api/voiture/all');
+        const response = await axios.get('https://autooccasionpart2-production.up.railway.app/api/voiture/all');
         setVoitures(response.data);
         setLoading(false);
       } catch (error) {
@@ -56,7 +56,7 @@ const AnnonceForm: React.FC = () => {
   const create = (data: any) => {
     console.log(JSON.stringify(data));
     const token = localStorage.getItem('token');
-    fetch('https://autooccasion-production.up.railway.app/api/annonce/create_annonce', {
+    fetch('https://autooccasionpart2-production.up.railway.app/api/annonce/create_annonce', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

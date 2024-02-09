@@ -46,7 +46,7 @@ const Login: React.FC = () => {
       const email = emailRef.current?.value || '';
       const mdp = passwordRef.current?.value || '';
 
-      const response = await fetch('https://autooccasion-production.up.railway.app/api/user/verif', {
+      const response = await fetch('https://autooccasionpart2-production.up.railway.app/api/user/verif', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -49,7 +49,7 @@ const Inscription: React.FC = () => {
     //e.preventDefault();
     const contactValue = contactRef.current?.value || '';
     try {
-      const response = await fetch('https://autooccasion-production.up.railway.app/api/user/create_user', {
+      const response = await fetch('https://autooccasionpart2-production.up.railway.app/api/user/create_user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

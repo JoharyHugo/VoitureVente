@@ -28,7 +28,7 @@ const Annonces: React.FC = () => {
 
   const fetchStatutData = async (id: number) => {
     try {
-      const response = await axios.get(`https://autooccasion-production.up.railway.app/api/statut/findOne/${id}`);
+      const response = await axios.get(`https://autooccasionpart2-production.up.railway.app/api/statut/findOne/${id}`);
       return response.data;
     } catch (error) {
       console.error('Erreur lors de la récupération des données du statut:', error);
@@ -43,7 +43,7 @@ const Annonces: React.FC = () => {
 
   const fetchVoiture = async (id: number) => {
     try {
-      const response = await axios.get(`https://autooccasion-production.up.railway.app/api/voiture/findOne/${id}`);
+      const response = await axios.get(`https://autooccasionpart2-production.up.railway.app/api/voiture/findOne/${id}`);
       return response.data;
     } catch (error) {
       console.error('Erreur lors de la récupération des données du statut:', error);
@@ -59,7 +59,7 @@ const Annonces: React.FC = () => {
           alert('Token Expire ou veuillez vous connecter');
           return;
         }
-        const response = await axios.get('https://autooccasion-production.up.railway.app/api/annonce/annonces_of_user', {
+        const response = await axios.get('https://autooccasionpart2-production.up.railway.app/api/annonce/annonces_of_user', {
           headers: {
             Authorization: 'Bearer ' + token,
           },

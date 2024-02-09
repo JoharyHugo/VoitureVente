@@ -34,7 +34,7 @@ const DetailAnnonce: React.FC = () => {
 
   const fetchVoiture = async (id: number) => {
     try {
-      const response = await axios.get(`https://autooccasion-production.up.railway.app/api/voiture/findOne/${id}`);
+      const response = await axios.get(`https://autooccasionpart2-production.up.railway.app/api/voiture/findOne/${id}`);
       console.log(response.data);
       return response.data;
     } catch (error) {
@@ -46,7 +46,7 @@ const DetailAnnonce: React.FC = () => {
 
   const getStatus = async () => {
     try {
-      const response = await axios.get(`https://autooccasion-production.up.railway.app/api/statut/all`);
+      const response = await axios.get(`https://autooccasionpart2-production.up.railway.app/api/statut/all`);
       console.log(response.data);
       setTabStatus(response.data);
     } catch (error) {
@@ -64,7 +64,7 @@ const DetailAnnonce: React.FC = () => {
 
   const fetchStatutData = async (id: number) => {
     try {
-      const response = await axios.get(`https://autooccasion-production.up.railway.app/api/statut/findOne/${id}`);
+      const response = await axios.get(`https://autooccasionpart2-production.up.railway.app/api/statut/findOne/${id}`);
       console.log(response.data);
       return response.data;
     } catch (error) {
@@ -77,7 +77,7 @@ const DetailAnnonce: React.FC = () => {
   const handleStatutModification = () => {
     const token = localStorage.getItem('token');
 
-    fetch(`https://autooccasion-production.up.railway.app/api/annonce/update_statut/${idannonce}/${selectedStatut}`, {
+    fetch(`https://autooccasionpart2-production.up.railway.app/api/annonce/update_statut/${idannonce}/${selectedStatut}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ const DetailAnnonce: React.FC = () => {
           return;
         }
 
-        const response = await axios.get(`https://autooccasion-production.up.railway.app/api/annonce/one_annonce_user/${idannonce}`, {
+        const response = await axios.get(`https://autooccasionpart2-production.up.railway.app/api/annonce/one_annonce_user/${idannonce}`, {
           headers: {
             'Authorization': 'Bearer ' + token
           }
