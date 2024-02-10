@@ -191,7 +191,7 @@ const AnnonceForm: React.FC = () => {
                 <div className="mb-3">
                   <IonLabel style={{ color: 'black', fontWeight: 'bold' }}>Prix Vente</IonLabel>
                   <IonInput
-                    type="text"
+                    type="number"
                     className="form-control"
                     value={prixVente}
                     onIonChange={(e) => setPrixVente(e.detail.value!)}
